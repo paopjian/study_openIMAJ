@@ -1,0 +1,70 @@
+org.openimaj.image.Image 
+Image 图像基类
+    构造函数 Image()
+    方法
+        .abs() 取绝对值,像素值大于零 
+       	.add(Image<?,?> im) 叠加一个给定的图像
+        .add(Q num) 所有像素添加一个值
+        .addInplace(Image<?,?> im) 用给定图像替换原图
+        .clip(Q min, Q max) min以下改为0,max以上为最亮值
+        .clone() 深拷贝
+        .drawImage(I image, int x, int y) 在(x,y)处画图
+        .drawLine(...)画线
+        .drawText(AttributedString text, int x, int y) 渲染文本
+        .fill(Q colour) 填充颜色
+        .flipX() 水平翻转
+        .flipY() 垂直翻转
+        .getCols() = getWidth()
+        .getRows() = getHeight()
+        .getWidth() 图片宽度
+        .getHeight() 图片高度
+    	.getPixel(int x, int y) 获取(x,y)处的像素
+        .max() 最大像素值
+        .min() 最小像素值
+        .newInstance(int width, int height) 新实例
+        .normalise() 归一化像素值.[0.0,1.0]
+        .overlay(I image, int x, int y) 重叠
+        .padding(int paddingWidth, int paddingHeight) 填充边框
+        .pross() 处理图像,使用kernelProcessor,生成新图
+        .processInplace(...) 处理原图
+        .setPixel(int x, int y, Q val) 设置(x,y)处像素值
+        .subtract(Q num) 像素减去一个值.可减图像
+        .threshold(Q thresh) 阈值以上为1,以下为0
+        .zero() 所有像素为0
+
+MultiBandImage 多波段图像
+    方法
+        Image的方法都有
+        .fill(T[] colour) 填充颜色
+        .flatten() 平均每个像素生成单波段图像
+        .getBand(int i) 获取波段
+        .numBands() 波段数
+
+FImage 继承Image
+    数据
+        .pixels[][] 像素数据,可取可修改
+
+MBFImage 多波段浮点图像.保存彩色图像
+    构造
+        MBFImage() 构造默认空RGB图像
+        MBFImage(MBFImage(ColourSpace colourSpace, FImage... images)) 由单色图构造多色图
+        MBFImage(double[] ds, int width, int height, int nbands, boolean interlaced)给数据,宽度,高度,频段数,隔行扫描,直接生成图片
+        MBFImage(int width, int height) 给宽高直接生成空图
+    方法
+        .getBand()  获取通道, 0:R 1:G 2:B
+            .pixels[][] 针对像素处理
+        
+DisplayUtilities 用于输出图像
+    .display(BufferedImage image) 输出图像,可带标题
+
+ImageUtilities 处理图像类
+    .checkSameSize(Image<?,?>... images)检查是否是相同size
+    .checkSize(int h, int w, Image<?,?>... images) 检查是否是给定size
+    .readF(File input) 读单色图片
+    .readMBF() 读取彩色图像 
+    .write(Image<?,?> image, File output) 输出图片
+
+ResizeProcessor 调整size
+    .doubleSize(FImage image) 双倍尺寸
+    .halfSize(FImage image) 一半尺寸
+
